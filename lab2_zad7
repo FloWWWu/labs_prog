@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include<cmath>
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+
+    int N;
+    int minP = 0, minQ = 0, D, minD, maxP;
+
+    printf("Ведите число N: ");
+    scanf_s("%d", &N);
+
+    while (N < 1 || N > 1e6) {
+        printf("Дебил! Число должно быть от 1 до 1000000.\n");
+        printf("N: ");
+        scanf_s("%d", &N);
+    }
+
+    minD = abs(N - 2);
+
+    maxP = 1;
+    while (pow(maxP, 2) < N) {
+        maxP++;
+    }
+
+    // Обычный порядок перебора (снизу вверх)
+    for (int P = 1; P <= maxP; P++) {
+        for (int Q = P; Q <= maxP; Q++) {
+
+            D = abs(N - pow(P, 2) - pow(Q, 2));
+
+            // Знак <= позволяет паре (60, 80) заменить пару (28, 96), 
+            // так как у них одинаковое отклонение (D = 1), но (60, 80) идет позже
+            if (D <= minD) {
+                minD = D;
+                minP = P;
+                minQ = Q;
+            }
+        }
+    }
+
+    printf("P = %d; Q = %d\n", minP, minQ);
+
+    return 0;
+}
