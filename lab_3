@@ -1,0 +1,35 @@
+#include <iostream>
+#include<locale.h>
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    int n;
+    int count_x = 0;
+    int count_y = 0;
+    printf("Введите количество отрезков N: ");
+    while (scanf_s("%d", &n) != 1 || n <= 0) {
+        printf("ДЕБИЛ!!! Ошибка ввода количества отрезков.\nВведите количество отрезков:");
+    }
+    printf("Для каждого отрезка введите координаты x1 y1 x2 y2:\n");
+    for (int i = 0; i < n; ++i) {
+        double x1, y1, x2, y2;
+        printf("Отрезок %d: ", i + 1);
+        if (scanf_s("%lf %lf %lf %lf", &x1, &y1, &x2, &y2) != 4) {
+            printf("Ошибка ввода координат. Попробуйте еще раз для этого отрезка.\n");
+            while (getchar() != '\n');
+            i--;
+            continue;
+        }
+        if (y1 * y2 <= 0) {
+            count_x++;
+        }
+        if (x1 * x2 <= 0) {
+            count_y++;
+        }
+    }
+    printf("\n--- Результаты ---\n");
+    printf("Имеют общие точки с осью X: %d\n", count_x);
+    printf("Имеют общие точки с осью Y: %d\n", count_y);
+
+    return 0;
+}
