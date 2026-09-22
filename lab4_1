@@ -1,0 +1,56 @@
+#include <cstdio>
+#include <cmath> 
+#include <locale.h>
+
+int main() {
+    double E = -1.0;
+    setlocale(LC_ALL, "Russian");
+
+    while (E <= 0 || E > 1) {
+        printf("Введите действительное число E (например, 0.12123 или 0.001): ");
+        scanf_s("%lf", &E);
+
+        if (E <= 0 || E > 1) {
+            printf("Ошибка: число должно быть строго больше 0! Попробуйте еще раз.\n\n");
+        }
+    }
+    double sum = 0.0;
+    double sum1 = 0.0;
+    double sum2 = 0.0;
+    int n = 1;
+    double mn = 1.0 / pow(3.0, n);
+
+    while (mn >= E) {
+        double cs = pow(3.0, n - 1);
+        double sl = mn * cos(cs);
+        sum += sl;
+
+        n++;
+        mn = 1.0 / pow(3.0, n);
+    }
+
+    for (int n_for = 1; (1.0 / pow(3.0, n_for)) >= E; n_for++) {
+        double mn_for = 1.0 / pow(3.0, n_for);
+        double cs2 = pow(3.0, n_for - 1);
+        double sl1 = mn_for * cos(cs2);
+        sum1 += sl1;
+    }
+    n = 1;
+    mn = 1.0 / pow(3.0, n); 
+    if (mn >= E) {
+        do {
+            double cs2 = pow(3.0, n - 1);
+            double sl2 = mn * cos(cs2);
+            sum2 += sl2;
+
+            n++;
+            mn = 1.0 / pow(3.0, n);
+        } while (mn >= E);
+    }
+
+    printf("\nВычисленная сумма (while):    %f\n", sum);
+    printf("Вычисленная сумма (for):      %f\n", sum1);
+    printf("Вычисленная сумма (do-while): %f\n", sum2);
+
+    return 0;
+}
