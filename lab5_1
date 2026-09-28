@@ -8,31 +8,31 @@ using namespace std;
 int main() {
     setlocale(LC_ALL, "Russian");
     srand(static_cast<unsigned int>(time(nullptr)));
-    int N;
-    printf("Введите количество чисел N: ");
-    while (true) {
-        printf("Введите количество чисел N (больше 0): ");
-        if (scanf_s("%d", &N) == 1 && N > 0) {
-            break;
-        }
-        else {
-            printf("Ошибка ввода! Пожалуйста, введите корректное целое число.\n");
-            while (getchar() != '\n');
-            printf("\n");
-        }
-    }
-    int* arr = new int[N];
-    printf("Сгенерированные целые числа:\n");
 
+    const int n = 1000;
+    int arr[n];
+    int N = 0;
+    printf("Введите ограничения:");
+    int f;
+    int g;
+    scanf_s("%d-%d", &f, &g);
+
+    printf("Введите количество чисел N (от 1 до %d): ", n);
+    while (scanf_s("%d", &N) != 1 || N <= 0 || N > n) {
+        printf("ДЕБИЛ! Пожалуйста, введите корректное целое число в указанном диапазоне: ");
+    }
+    printf("\nСгенерированные целые числа:\n");
     for (int i = 0; i < N; ++i) {
-        arr[i] = -100 + rand() % 201;
+        arr[i] = f + rand() % 201;
         printf("%d ", arr[i]);
     }
     printf("\n\n");
+
     int min_pol = 101;
     int max_otr = -101;
     bool found_pol = false;
     bool found_otr = false;
+
     for (int i = 0; i < N; ++i) {
         int num = arr[i];
         if (num > 0) {
@@ -41,7 +41,7 @@ int main() {
                 found_pol = true;
             }
         }
-        else if (num < 0) {
+        else {
             if (num > max_otr) {
                 max_otr = num;
                 found_otr = true;
@@ -54,17 +54,10 @@ int main() {
     else {
         printf("Положительные числа не найдены.\n");
     }
-
     if (found_otr) {
         printf("Максимальное отрицательное число: %d\n", max_otr);
     }
     else {
         printf("Отрицательные числа не найдены.\n");
     }
-    delete[] arr;
-
-
-
-
-    return 0;
 }
