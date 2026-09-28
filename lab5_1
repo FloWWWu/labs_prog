@@ -12,24 +12,35 @@ int main() {
     const int n = 1000;
     int arr[n];
     int N = 0;
-    printf("Введите ограничения:");
     int f;
     int g;
-    scanf_s("%d-%d", &f, &g);
+
+    printf("Введите диапазон генерации (например, -100-100 или 5-50): ");
+
+    while (scanf_s("%d-%d", &f, &g) != 2) {
+        printf("ДЕБИЛ! Введите диапазон через дефис (например, -100-100): ");
+    }
+    if (f > g) {
+        int temp = f;
+        f = g;
+        g = temp;
+    }
 
     printf("Введите количество чисел N (от 1 до %d): ", n);
     while (scanf_s("%d", &N) != 1 || N <= 0 || N > n) {
         printf("ДЕБИЛ! Пожалуйста, введите корректное целое число в указанном диапазоне: ");
     }
     printf("\nСгенерированные целые числа:\n");
+    int range = g - f + 1;
+
     for (int i = 0; i < N; ++i) {
-        arr[i] = f + rand() % 201;
+        arr[i] = f + rand() % range;
         printf("%d ", arr[i]);
     }
     printf("\n\n");
 
-    int min_pol = 101;
-    int max_otr = -101;
+    int min_pol = INT_MAX;
+    int max_otr = INT_MIN;
     bool found_pol = false;
     bool found_otr = false;
 
