@@ -20,10 +20,6 @@ int main() {
 
         if (scanf_s("%lf", &porog) != 1) {
             printf("Ошибка: нужно ввести число! Попробуйте еще раз.\n\n");
-
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
-            continue;
         }
         if (porog <= 0) {
             printf("Ошибка! Вы ввели %.0f. Число должно быть положительным.\n\n", porog);
