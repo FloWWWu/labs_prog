@@ -1,0 +1,63 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <locale.h>
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+
+    const int N = 100;
+    double a[N];
+    double b[N];
+    double temp;
+    int j = 0;
+
+    srand((unsigned int)time(NULL));
+
+    // Заполнение массива случайными числами
+    printf("Исходный массив:\n");
+
+    for (int i = 0; i < N; i++)
+    {
+        a[i] = -55 + (double)rand() / RAND_MAX * 71;
+        printf("%.2f ", a[i]);
+    }
+
+    // Выбор отрицательных элементов с нечетными индексами
+    for (int i = 1; i < N; i += 2)
+    {
+        if (a[i] < 0)
+        {
+            b[j] = a[i];
+            j++;
+        }
+    }
+
+    // Сортировка по убыванию
+    for (int i = 0; i < j - 1; i++)
+    {
+        for (int k = 0; k < j - i - 1; k++)
+        {
+            if (b[k] < b[k + 1])
+            {
+                temp = b[k];
+                b[k] = b[k + 1];
+                b[k + 1] = temp;
+            }
+        }
+    }
+
+    // Вывод результата
+    printf("\n\nОтрицательные элементы с нечетными индексами:\n");
+
+    for (int i = 0; i < j; i++)
+    {
+        printf("%.2f ", b[i]);
+    }
+
+    printf("\n");
+
+    return 0;
+}
